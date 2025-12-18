@@ -55,7 +55,7 @@
             <div class="min-w-[120px] min-h-[30px]
             flex justify-center bg-[#ed7b7b] rounded-[10px]">
                 <span class="text-[25px] text-[#ebe76c]">⏰ - &nbsp;</span>
-                <span class="text-[25px] text-[#ebe76c]" id="timerText">9</span>
+                <span class="text-[25px] text-[#ebe76c]" id="timerText">8</span>
                 <span class="text-[25px] text-[#ebe76c]">s</span>
             </div>
             <div class="min-w-[120px] min-h-[30px]
@@ -67,6 +67,20 @@
         </div>
         <div class="flex flex-wrap max-w-[515px] py-[5px] w-auto mx-auto gap-[2px] bg-[#777] justify-center" id="selectBox" >
         </div>
+    </div>
+
+    <div class="fixed w-full h-[100vh] justify-center items-center flex-col bg-[#749bc2] hidden" id="loseBox">
+        <h2 class="text-[120px] text-[#ebe76c]">You lose 😜</h2>
+        <button id="restartBtn" class="text-[45px] text-[#f7ec09] cursor-pointer hover:underline">
+            Again 🗘
+        </button>
+    </div>
+
+    <div class="fixed w-full h-[100vh] justify-center items-center flex-col bg-[#30a2ff] hidden" id="winBox">
+    <h2 class="text-[120px] text-[#ebe76c]">You win 👏</h2>
+        <button id="restartBtn" class="text-[45px] text-[#f7ec09] cursor-pointer hover:underline">
+            Again 🗘
+        </button>
     </div>
 
     <script src="/js/script.mjs" type="module"></script>

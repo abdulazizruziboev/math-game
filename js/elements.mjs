@@ -8,5 +8,7 @@ let elGreetingBox = document.getElementById("greetingBox");
 let elGreetingCloseBtn = document.getElementById("greetingClose");
 let elContinueBox = document.getElementById("continueBox");
 let elContinueCloseBtn = document.getElementById("continueClose");
-
-export {elLoader,elMathTxt,elCorrectTxt,elWrongTxt,elTimerTxt,elSelectBox,elGreetingBox,elGreetingCloseBtn,elContinueBox,elContinueCloseBtn};
+let elLoseBox = document.getElementById("loseBox");
+let elWinBox = document.getElementById("winBox");
+let elRestartBtn = document.getElementById("restartBtn");
+export {elLoader,elMathTxt,elCorrectTxt,elWrongTxt,elTimerTxt,elSelectBox,elGreetingBox,elGreetingCloseBtn,elContinueBox,elContinueCloseBtn,elLoseBox,elWinBox,elRestartBtn};

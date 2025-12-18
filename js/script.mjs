@@ -1,4 +1,4 @@
-import {elLoader,elMathTxt,elCorrectTxt,elWrongTxt,elTimerTxt,elSelectBox,elGreetingBox,elGreetingCloseBtn,elContinueBox,elContinueCloseBtn} from "./elements.mjs";
+import {elLoader,elMathTxt,elCorrectTxt,elWrongTxt,elTimerTxt,elSelectBox,elGreetingBox,elGreetingCloseBtn,elContinueBox,elContinueCloseBtn,elLoseBox,elWinBox,elRestartBtn} from "./elements.mjs";
 
 document.addEventListener("DOMContentLoaded",()=>{
     setTimeout(()=>{
@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 let correctScore = 0;
 let wrongScore = 0;
+
 function random(p) {
 return Math.trunc(Math.random()*p);
 };
@@ -38,31 +39,30 @@ resultsArray[random(resultsArray.length)] = result;
 return resultsArray;
 }
 
-function decraseCorrect(){
-    correctScore--;
-    elCorrectTxt.textContent=correctScore;
-    newGame();
-}
-
-function newGameRetry(){
-    newGame();
+function status() {
+if(wrongScore>=11) {
+    elLoseBox.classList.remove("hidden");
+    elLoseBox.classList.add("flex");
+} else if(correctScore>=11) {
+    elWinBox.classList.remove("hidden");
+    elWinBox.classList.add("flex");
+};
 };
 
+let time = 8;
 function newGame(){
     let ti = null;
-    function timer(time) {
+    function timer() {
     ti = setInterval(()=>{
         elTimerTxt.textContent=time;
-        if(time==0){
-            clearInterval(ti);
-            timer(8);
-            decraseCorrect();
-        }
         time--;
+        if(time==-1){
+            clearInterval(ti);
+            time=8;
+        }
     },1000);
     };
-    timer(8);
-
+    timer();
     const {math,result} = generate();
     const resultsArray = results(result);
     elMathTxt.textContent = math;
@@ -103,18 +103,31 @@ function newGame(){
                 elCorrectTxt.textContent=correctScore;
                 evt.target.textContent="👌";
                 clearInterval(ti);
-                setTimeout(()=>{newGameRetry()},1000)
+                time=8;
+                status();
+                setTimeout(()=>{newGame()},1000);
             } else {
                 wrongScore++;
                 elWrongTxt.textContent=wrongScore;
                 evt.target.textContent="😞";
                 clearInterval(ti);
-                setTimeout(()=>{newGameRetry()},1000)
+                time=8;
+                status();
+                setTimeout(()=>{newGame()},1000);
             }
         })
     });
 };
 
+setInterval(()=>
+{
+    if(time==0) {
+        correctScore--;
+        elCorrectTxt.textContent=correctScore;
+        newGame();
+    }
+}
+,1000)
 elGreetingCloseBtn.addEventListener("click",()=>{
     elGreetingBox.style.transform="translateY(-100%)";
 });
@@ -136,3 +149,5 @@ document.addEventListener("keypress",(evt)=>{
        newGame();
     };
 });
+
+elRestartBtn.addEventListener("click",()=>{location.reload()});
