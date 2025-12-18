@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MathGame" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathGame</title>
+</head>
+<body class="bg-[#11e2f5] flex font-[Poppins]">
+    
+    <div class="bg-[#30aaff] h-[100vh] w-full fixed flex z-3 items-center justify-center transition-all duration-500" id="loader">
+        <span class="absolute animate-spin" style="border: 4px solid #e2b900; width: 120px; height: 120px; border-left: 2px solid transparent;border-right: 2px solid transparent; border-radius: 500px;">
+        </span>
+    </div>
+
+    <div class="fixed flex justify-center items-center h-[100vh] w-full bg-[#ebe76c] flex-col transition-all duration-1000 z-2" id="greetingBox">
+        <h2 class="text-[#836096] text-[80px]">Hi kid 👋</h2>
+        <p class="text-[#836096] text-[40px] max-w-[600px]">Funny arithmetic game for 3 - 10 aged children. Play and check your speed of
+          thinking.</p>
+        <button class="text-[40px] p-[10px_20px] bg-[#ed7b7b] text-[#ebe76c] cursor-pointer rounded-[12px] hover:shadow-[0px_10px_120px_20px_#0005] outline-none transition-all duration-300" id="greetingClose">Start Game</button>
+    </div>
+
+    <div class="fixed flex justify-center items-center h-[100vh] w-full bg-[#ed7b7b] flex-col gap-4 transition-all duration-1000" id="continueBox">
+        <h2 class="text-[#ebe76c] text-[80px] leading-none">Goodluck 😊</h2>
+        <p class="text-[#ebe76c] text-[40px] max-w-[650px] text-center leading-none">
+        Note: If you will face with the sign "%", that means you should find the
+        remainder of a division ex: 9 % 2 = 1 because 9 / 2 = 4 and the remainder is 1
+        </p>
+        <p class="text-[#ebe76c] text-[40px] max-w-[650px] text-center leading-none">
+        If you find 10 times correct answer, you will win.
+        <br>
+        You lose if there are more incorrect answers than correct answers
+        </p>
+        <button class="text-[40px] p-[10px_20px] bg-[#ebe76c] text-[#ed7b7b] cursor-pointer rounded-[12px] hover:shadow-[0px_10px_120px_20px_#0005] outline-none transition-all duration-300" id="continueClose">Continue 😎</button>
+    </div>
+
+    <div class="mx-auto mt-12 flex flex-col gap-10">
+        <div class="bg-[#30a2ff] min-w-[500px] h-[160px] rounded-[30px] flex flex-col justify-center items-center gap-6">
+            <span class="text-[#f7ec09] font-bold text-[80px] tracking-[5px] leading-none mt-12 tracking-2" id="mathTxt">
+                2+2
+            </span>
+            <div class="flex gap-6">
+            <div class="min-w-[120px] min-h-[30px]
+            flex justify-center gap-3 bg-[#ed7b7b] rounded-[10px]">
+                <span class="text-[25px] text-[#ebe76c]">👌 - </span>
+                <span class="text-[25px] text-[#ebe76c]" id="correctScore">0</span>
+            </div>
+            <div class="min-w-[120px] min-h-[30px]
+            flex justify-center gap-3 bg-[#ed7b7b] rounded-[10px]">
+                <span class="text-[25px] text-[#ebe76c]">⏰ - </span>
+                <span class="text-[25px] text-[#ebe76c]" id="timerText">9s</span>
+            </div>
+            <div class="min-w-[120px] min-h-[30px]
+            flex justify-center gap-3 bg-[#ed7b7b] rounded-[10px]">
+                <span class="text-[25px] text-[#ebe76c]">😞 - </span>
+                <span class="text-[25px] text-[#ebe76c]" id="wrongScore">0</span>
+            </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap max-w-[403px] w-auto mx-auto gap-[1px]" id="selectBox" >
+        </div>
+    </div>
+
+    <script src="/js/script.mjs" type="module"></script>
+</body>
+</html>
