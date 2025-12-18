@@ -49,8 +49,9 @@ function newGameRetry(){
 };
 
 function newGame(){
+    let ti = null;
     function timer(time) {
-    const ti = setInterval(()=>{
+    ti = setInterval(()=>{
         elTimerTxt.textContent=time;
         if(time==0){
             clearInterval(ti);
@@ -101,11 +102,13 @@ function newGame(){
                 correctScore++;
                 elCorrectTxt.textContent=correctScore;
                 evt.target.textContent="👌";
+                clearInterval(ti);
                 setTimeout(()=>{newGameRetry()},1000)
             } else {
                 wrongScore++;
                 elWrongTxt.textContent=wrongScore;
                 evt.target.textContent="😞";
+                clearInterval(ti);
                 setTimeout(()=>{newGameRetry()},1000)
             }
         })
