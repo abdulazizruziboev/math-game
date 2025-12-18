@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 let correctScore = 0;
 let wrongScore = 0;
-let time = 8
 function random(p) {
 return Math.trunc(Math.random()*p);
 };
@@ -27,85 +26,101 @@ c = random(10);
 }
 let math = `${a}${b}${c}`;
 let result = eval(math);
-console.log
-(math,result);
 return {math,result};
 };
 
 function results(result) {
 let resultsArray = [];
-while(resultsArray.length!==16) {
+while(resultsArray.length!==20) {
 resultsArray.push(random(100));
 } 
 resultsArray[random(resultsArray.length)] = result;
 return resultsArray;
 }
-function game(timeID){  
-clearInterval(timeID);
-const {math,result} = generate();
-const resultsArray = results(result);
-elMathTxt.textContent=math;
-elSelectBox.innerHTML=``;
-resultsArray.forEach((el)=>{
-let resultItems = document.createElement("span");
-resultItems.textContent = el;
-resultItems.style.cssText = `
-width: 100px;
-height: 100px;
-color: yellow;
-background: dodgerblue;
-font-weight: 600;
-display: flex;
-align-items: center;
-justify-content: center;
-cursor: pointer;
-transition: all 0.4s linear;
-`;
-resultItems.classList.add("js-select");
-resultItems.classList.add("hover:transform-[scale(1.1)]");
-resultItems.classList.add("hover:shadow-[0px_0px_20px_20px_#0003]");
-elSelectBox.append(resultItems);
-})
-function timer(time) {
-    let timetInterval = setInterval(() => {
-    elTimerTxt.textContent=time+"s";
-    if(time==-1){
-        elTimerTxt.textContent="8s";
-        correctScore--;
-        elCorrectTxt.textContent=correctScore;
-        game(timetInterval);
-    }
-    time--;
-}, 1000);
-return timetInterval;
+
+function decraseCorrect(){
+    correctScore--;
+    elCorrectTxt.textContent=correctScore;
+    newGame();
 }
-timer(time);
-let selectItems = document.querySelectorAll(".js-select")
-selectItems.forEach((el)=>el.addEventListener("click",(evt)=>{
-    if(evt.target.textContent==result) {
-        correctScore++;
-        elCorrectTxt.textContent=correctScore;
-        evt.target.textContent="👌";
-        setTimeout(game,1500);
-    } else if(evt.target.textContent!=result) {
-        wrongScore++;
-        elWrongTxt.textContent=wrongScore;
-        evt.target.textContent="😞";
-        setTimeout(game,1500);
-    }
-}));
+
+function newGameRetry(){
+    newGame();
 };
 
-let enterPressed = 0;
+function newGame(){
+    function timer(time) {
+    const ti = setInterval(()=>{
+        elTimerTxt.textContent=time;
+        if(time==0){
+            clearInterval(ti);
+            timer(8);
+            decraseCorrect();
+        }
+        time--;
+    },1000);
+    };
+    timer(8);
+
+    const {math,result} = generate();
+    const resultsArray = results(result);
+    elMathTxt.textContent = math;
+    elSelectBox.innerHTML="";
+    resultsArray.forEach((el,inx)=>{
+        let resultChilds = document.createElement("span");
+        resultChilds.textContent=el;
+        if(inx%2==0) {
+            resultChilds.style.cssText = `
+            width: 100px; 
+            height: 100px;
+            background: yellow;
+            color: dodgerblue;
+            font-size: 30px;
+            display: flex; justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s linear;
+            `;
+        } else {
+            resultChilds.style.cssText = `
+            width: 100px; 
+            height: 100px;
+            background: dodgerblue;
+            color: yellow;
+            font-size: 30px;
+            display: flex; justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s linear;
+            `
+        }
+        resultChilds.classList.add("select_btns");
+        elSelectBox.append(resultChilds);
+        resultChilds.addEventListener("click",(evt)=>{
+            if(evt.target.textContent==result) {
+                correctScore++;
+                elCorrectTxt.textContent=correctScore;
+                evt.target.textContent="👌";
+                setTimeout(()=>{newGameRetry()},1000)
+            } else {
+                wrongScore++;
+                elWrongTxt.textContent=wrongScore;
+                evt.target.textContent="😞";
+                setTimeout(()=>{newGameRetry()},1000)
+            }
+        })
+    });
+};
 
 elGreetingCloseBtn.addEventListener("click",()=>{
     elGreetingBox.style.transform="translateY(-100%)";
 });
 elContinueCloseBtn.addEventListener("click",()=>{
     elContinueBox.style.transform="translateY(-100%)";
-    game();
+    newGame();
 });
 
+let enterPressed = 0;
 document.addEventListener("keypress",(evt)=>{
     if(evt.key=="Enter") {
         enterPressed++;
@@ -115,6 +130,6 @@ document.addEventListener("keypress",(evt)=>{
     }; 
     if(enterPressed==2) {
        elContinueBox.style.transform="translateY(-100%)";
-       game();
+       newGame();
     };
 });
