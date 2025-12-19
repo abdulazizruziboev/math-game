@@ -6,7 +6,7 @@
 * {
     font-family: "Smeshariki",Arial, Helvetica, sans-serif;
     font-weight: 100 !important;
-    /* user-select: none; */
+    user-select: none;
 }
 
 .select_btns:hover {

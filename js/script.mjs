@@ -1,5 +1,5 @@
 import {elLoader,elMathTxt,elCorrectTxt,elWrongTxt,elTimerTxt,elSelectBox,elGreetingBox,elGreetingCloseBtn,elContinueBox,elContinueCloseBtn,elLoseBox,elWinBox,elRestartBtn} from "./elements.mjs";
-
+import {start,correct,wrg,win,over} from "./audios.mjs";
 document.addEventListener("DOMContentLoaded",()=>{
     setTimeout(()=>{
     elLoader.style.transform = "translateY(-100%)";
@@ -43,9 +43,11 @@ function status() {
 if(wrongScore>=11) {
     elLoseBox.classList.remove("hidden");
     elLoseBox.classList.add("flex");
+    over.play();
 } else if(correctScore>=11) {
     elWinBox.classList.remove("hidden");
     elWinBox.classList.add("flex");
+    win.play();
 };
 };
 
@@ -99,6 +101,7 @@ function newGame(){
         elSelectBox.append(resultChilds);
         resultChilds.addEventListener("click",(evt)=>{
             if(evt.target.textContent==result) {
+                correct.play();
                 correctScore++;
                 elCorrectTxt.textContent=correctScore;
                 evt.target.textContent="👌";
@@ -106,7 +109,8 @@ function newGame(){
                 time=8;
                 status();
                 setTimeout(()=>{newGame()},1000);
-            } else {
+            } else if(evt.target.textContent!=result) {
+                wrg.play();
                 wrongScore++;
                 elWrongTxt.textContent=wrongScore;
                 evt.target.textContent="😞";
@@ -130,9 +134,11 @@ setInterval(()=>
 ,1000)
 elGreetingCloseBtn.addEventListener("click",()=>{
     elGreetingBox.style.transform="translateY(-100%)";
+    start.play();
 });
 elContinueCloseBtn.addEventListener("click",()=>{
     elContinueBox.style.transform="translateY(-100%)";
+    start.play();
     newGame();
 });
 
@@ -143,9 +149,11 @@ document.addEventListener("keypress",(evt)=>{
     };
     if(enterPressed==1) {
         elGreetingBox.style.transform="translateY(-100%)";
+        start.play();
     }; 
     if(enterPressed==2) {
        elContinueBox.style.transform="translateY(-100%)";
+       start.play();
        newGame();
     };
 });
