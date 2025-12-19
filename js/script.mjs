@@ -105,6 +105,7 @@ function newGame(){
                 correctScore++;
                 elCorrectTxt.textContent=correctScore;
                 evt.target.textContent="👌";
+                resultChilds.style.pointerEvents="none"
                 clearInterval(ti);
                 time=8;
                 status();
@@ -114,6 +115,7 @@ function newGame(){
                 wrongScore++;
                 elWrongTxt.textContent=wrongScore;
                 evt.target.textContent="😞";
+                resultChilds.style.pointerEvents="none"
                 clearInterval(ti);
                 time=8;
                 status();
