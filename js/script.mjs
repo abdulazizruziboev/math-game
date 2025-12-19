@@ -33,9 +33,12 @@ return {math,result};
 function results(result) {
 let resultsArray = [];
 while(resultsArray.length!==20) {
-resultsArray.push(random(100));
+if(String(result).includes("-")) {
+    resultsArray.push(Number("-"+random(100)));
+} else resultsArray.push(random(100));
 } 
 resultsArray[random(resultsArray.length)] = result;
+console.log(resultsArray);
 return resultsArray;
 }
 
