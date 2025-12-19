@@ -109,7 +109,7 @@ function newGame(){
                 clearInterval(ti);
                 time=8;
                 status();
-                setTimeout(()=>{newGame()},1000);
+                setTimeout(()=>{newGame()},2000);
             } else if(evt.target.textContent!=result) {
                 wrg.play();
                 wrongScore++;
@@ -119,7 +119,7 @@ function newGame(){
                 clearInterval(ti);
                 time=8;
                 status();
-                setTimeout(()=>{newGame()},1000);
+                setTimeout(()=>{newGame()},2000);
             }
         })
     });
